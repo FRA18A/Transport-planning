@@ -270,7 +270,7 @@ G=[0,0]
 # FO[3]+=1
 # FD[3]+=1
 
-#L271-为佛尼斯
+#L273-330为佛尼斯
 print('求发生交通量增长系数和吸引交通量增长系数')
 for i in range(3):
     FO[i]=U[i]/O[i]
@@ -316,6 +316,34 @@ print(q)
 
 
 print('重新计算增长系数')
+O[0]=q[0][0]+q[0][1]+q[0][2]
+O[1]=q[1][0]+q[1][1]+q[1][2]
+O[2]=q[2][0]+q[2][1]+q[2][2]
+# D[0]=q[0][0]+q[1][0]+q[2][0]
+# D[1]=q[0][1]+q[1][1]+q[2][1]
+# D[2]=q[0][2]+q[1][2]+q[2][2]
+D=[16,28,40,0]
+for i in range(3):
+    FO[i]=U[i]/O[i]
+    FD[i]=V[i]/D[i]
+    print('F_{O'+str(i+1)+'}^'+str(FO[3])+'=\\frac{U_'+str(i+1)+'}{O_'+str(i+1)+'}='+str(FO[i])+'\\\\')
+    print('F_{D'+str(i+1)+'}^'+str(FO[3])+'=\\frac{V_'+str(i+1)+'}{D_'+str(i+1)+'}='+str(FD[i])+'\\\\')
+FO[3]+=1
+FD[3]+=1
+
+
+print('第三次近似')
+for i in range(3):
+    for j in range(3):
+        exec('q'+str(i+1)+str(j+1)+'[3]=FO['+str(i)+']*q'+str(i+1)+str(j+1)+'[3]')#这一行里有增长函数
+        exec('q'+str(i+1)+str(j+1)+'[2]+=1')
+        exec('q['+str(i)+']['+str(j)+']=q'+str(i+1)+str(j+1)+'[3]')        
+        print('q_{'+str(i+1)+str(j+1)+'}^'+str(q11[2])+'=F_{O'+str(i+1)+'}*q_{'+str(i+1)+str(j+1)+'}^'+str(q11[2]-1)+'='+str(q[i][j])+'\\\\')
+q[3]+=1
+print(q)
+
+
+print('重新计算增长系数')
 for i in range(3):
     O[i]=q[i][0]+q[i][1]+q[i][2]
     D[i]=q[0][i]+q[1][i]+q[2][i]
@@ -326,31 +354,6 @@ for i in range(3):
     print('F_{D'+str(i+1)+'}^'+str(FO[3])+'=\\frac{V_'+str(i+1)+'}{D_'+str(i+1)+'}='+str(FD[i])+'\\\\')
 FO[3]+=1
 FD[3]+=1
-
-
-# print('第三次近似')
-# for i in range(3):
-#     for j in range(3):
-#         exec('q'+str(i+1)+str(j+1)+'[3]=FO['+str(i)+']*q'+str(i+1)+str(j+1)+'[3]')#这一行里有增长函数
-#         exec('q'+str(i+1)+str(j+1)+'[2]+=1')
-#         exec('q['+str(i)+']['+str(j)+']=q'+str(i+1)+str(j+1)+'[3]')        
-#         print('q_{'+str(i+1)+str(j+1)+'}^'+str(q11[2])+'=F_{O'+str(i+1)+'}*q_{'+str(i+1)+str(j+1)+'}^'+str(q11[2]-1)+'='+str(q[i][j])+'\\\\')
-# q[3]+=1
-# print(q)
-
-
-# print('重新计算增长系数')
-# for i in range(3):
-#     O[i]=q[i][0]+q[i][1]+q[i][2]
-#     D[i]=q[0][i]+q[1][i]+q[2][i]
-# for i in range(3):
-#     FO[i]=U[i]/O[i]
-#     FD[i]=V[i]/D[i]
-#     print('F_{O'+str(i+1)+'}^'+str(FO[3])+'=\\frac{U_'+str(i+1)+'}{O_'+str(i+1)+'}='+str(FO[i])+'\\\\')
-#     print('F_{D'+str(i+1)+'}^'+str(FO[3])+'=\\frac{V_'+str(i+1)+'}{D_'+str(i+1)+'}='+str(FD[i])+'\\\\')
-# FO[3]+=1
-# FD[3]+=1
-
 
 
 
